@@ -67,4 +67,16 @@ def adjust_results4_isadog(results_dic, dogfile):
     Returns:
            None - results_dic is mutable data type so no return needed.
     """           
-    None
+    dognames_dic = dict()
+
+    with open(dogfile) as f:
+
+        for line in f:
+
+            if line.rstrip('\n') not in dognames_dic: 
+
+                dognames_dic[line.rstrip('\n')]= 0
+
+    for key, value in results_dic.items():
+
+        value.extend([1 if value[0] in dognames_dic else 0, 1 if value[1] in dognames_dic else 0])
