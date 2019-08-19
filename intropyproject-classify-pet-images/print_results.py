@@ -61,6 +61,59 @@ def print_results(results_dic, results_stats_dic, model,
                               False doesn't print anything(default) (bool) 
     Returns:
            None - simply printing results.
-    """    
-    None
+    """
+
+    # Prints summary statistics over the run
+    
+    print(" Results Summary )
+
+    print('Number of Images: {}'.format(results_stats_dic['n_images']))
+
+    print('Number of Dog Images:{}'.format(results_stats_dic['n_dogs_img']))
+
+    print('Number of "Not-a" Dog: {} Images'.format(results_stats_dic['n_notdogs_img']))
+
+    
+    # Prints percentages statistics summary
+    for key, value in results_stats_dic.items():
+
+        if key.startswith('pct_'):
+
+            print('{} : {}'.format(key, value))
                 
+
+
+     if print_incorrect_dogs:
+
+        if results_stats_dic['n_correct_dogs'] + results_stats_dic['n_correct_notdogs'] != results_stats_dic['n_images'] :
+
+            print(' Misclassified Dogs ')
+
+            for key, value in results_dic.items():
+
+                if sum(results_dic[key][3:]) == 1:
+
+                    print('{}: {}'.format(key, value[1]))
+
+        else:
+
+            print('No misclassified dogs')
+
+
+
+
+        if print_incorrect_breed:
+
+        if results_stats_dic['n_correct_dogs'] != results_stats_dic['n_correct_breed'] :
+
+            print(' Misclassified Breeds of Dog ')
+
+            for key, value in results_dic.items():
+
+                if sum(results_dic[key][3:]) == 2 and results_dic[key][2] == 0:
+
+                    print('{}: {}'.format(key, value[1]))
+
+        else:
+
+            print('No Misclassified Breed\'s of Dog')
